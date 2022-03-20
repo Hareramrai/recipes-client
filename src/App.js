@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import AuthService from "./services/AuthService";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
+import Recipe from "./screens/Recipe";
+import Ingredient from "./screens/Ingredient";
+import Home from "./screens/Home";
+import NavBar from "./components/NavBar";
+import MyIngredient from "./screens/users/MyIngredient";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(undefined);
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar currentUser={currentUser}></NavBar>
+      <div className="wrapper flex-grow-1 container py-5">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/recipes" element={<Recipe />} />
+          <Route path="/ingredients" element={<Ingredient />} />
+          <Route path="/my_ingredients" element={<MyIngredient />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
