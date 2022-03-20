@@ -33,8 +33,11 @@ const Home = () => {
     await getRecipes(currentPage);
   };
 
-  useEffect(async () => {
-    await getRecipes(0);
+  useEffect(() => {
+    async function fetchData() {
+      await getRecipes(0);
+    }
+    fetchData();
   }, []);
 
   return (

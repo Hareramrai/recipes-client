@@ -2,7 +2,7 @@ import axios from "axios";
 import AuthHeader from "./AuthHeader";
 import AuthService from "./AuthService";
 
-const API_URL = "http://localhost:3000/api/v1";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const getRecipes = (title, page, perPage) => {
   return axios
